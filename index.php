@@ -335,6 +335,27 @@ $app->post('/admin/categories/:idcategory',function($idcategory){
 });
 
 
+//Rota categorias no site principal:
+
+$app->get('/categories/:idcategory', function($idcategory){
+
+    $category = new Category();
+
+    $category->get((int)$idcategory);
+
+
+    $page = new Page();
+
+    $page->setTpl("category",[
+        "category"=>$category->getValues(),
+        "products"=>[]
+    ]);
+
+
+
+});
+
+
 
 $app->run();
 
