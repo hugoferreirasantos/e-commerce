@@ -12,6 +12,7 @@ $app->config('debug', true);
 
 //Rotas a ver com o site:
 require_once("site.php");
+require_once("functions.php");
 
 //Rotas do Adminstrativo:
 require_once("admin.php");

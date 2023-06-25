@@ -1,58 +1,56 @@
 <?php
+//Método que vai criar gets and sets para as outras classe que extenderem desta:
 
-//Namespace:
 namespace Hcode;
 
 class Model {
-
 	//Atributos:
 	private $values = [];
 
-
 	//Métodos:
-	 public function __call($name, $args)
-	 {
 
-	 	$method = substr($name,0,3);
-	 	$fildName = substr($name,3, strlen($name));
+	public function __call($name, $args)
+	{
 
-	 	//var_dump($method, $fildName);
-	 	//exit;
+		$method = substr($name,0,3);
+		$fildName = substr($name, 3, strlen($name));
 
-	 	switch ($method){
+		//var_dump($method, $fildName);
+		//exit;
 
-	 		case "get":
-	 			return (isset($this->values[$fildName])) ? $this->values[$fildName] : NULL;
-	 		break;
+		//Aplicando um switch case para tratar as informações:
+		switch($method)
+		{
+			case "get":
+				return (isset($this->values[$fildName])) ? $this->values[$fildName] : NULL;
+			break;
 
-	 		case "set":
-	 			$this->values[$fildName] = $args[0]; 
-	 		break;
+			case "set":
+				$this->values[$fildName] = $args[0];
+			break;
+		}
 
+	}
 
+	//Inicio: Método setData:
+	public function setData($data = array())
+	{
 
-	 	}
+		foreach($data as $key => $value){
 
-	 }
+			$this->{"set".$key}($value);
 
-	  public function setData($data = array())
-	  {
+		}
 
-	  	foreach($data as $key => $value){
+	}
+	 //Fim: Método setData:
 
-	  		$this->{"set".$key}($value);
+	public function getValues()
+	{
 
-	  	}
+		return $this->values;
 
-	  }
-
-	  public function getValues()
-	  {
-
-	  	return $this->values;
-
-	  }
-
+	}
 
 
 }

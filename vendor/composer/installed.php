@@ -6,11 +6,11 @@
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
         'reference' => NULL,
-        'name' => 'hugoferreirasantos/e-commerce',
+        'name' => 'hugoferreirasantos/ecommerce',
         'dev' => true,
     ),
     'versions' => array(
-        'hugoferreirasantos/e-commerce' => array(
+        'hugoferreirasantos/ecommerce' => array(
             'pretty_version' => '1.0.0+no-version-set',
             'version' => '1.0.0.0',
             'type' => 'library',
