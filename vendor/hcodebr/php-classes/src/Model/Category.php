@@ -67,7 +67,7 @@ class Category extends Model {
 
 	 }
 
-	 public function updateFile()
+	 public static function updateFile()
 	{
 		//Pegando tudo que esta no banco de dados das categorias:
 		$categories = Category::listAll();
