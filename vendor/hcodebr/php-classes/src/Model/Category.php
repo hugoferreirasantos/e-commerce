@@ -96,42 +96,91 @@ class Category extends Model {
 
 	//Fim: Método para atualizar o arquivo:
 
+
 	//Inicio: Método getProducts:
-	public function getProducts($related = true)
+	public function getProducts($releted = true)
 	{
 
 		$sql = new Sql();
 
-		if($related === true){
+		if($releted === true)
+		{
 
 			return $sql->select("
 				SELECT * FROM tb_products WHERE idproduct IN(
-				SELECT a.idproduct
-				FROM tb_products a
-				INNER JOIN tb_productscategories b ON a.idproduct = b.idproduct
-				WHERE b.idcategory = :idcategory
-			);
+					SELECT 
+					a.idproduct
+					FROM tb_products a
+					INNER JOIN tb_productscategories b 
+					ON a.idproduct = b.idproduct
+					WHERE b.idcategory = :idcategory
+				);
 			",[
-				':idcategory'=>$this->getidcategory()
+				":idcategory"=>$this->getidcategory()
 			]);
 
 		}else{
 
 			return $sql->select("
 				SELECT * FROM tb_products WHERE idproduct NOT IN(
-				SELECT a.idproduct
-				FROM tb_products a
-				INNER JOIN tb_productscategories b ON a.idproduct = b.idproduct
-				WHERE b.idcategory = :idcategory
-			);
+					SELECT 
+					a.idproduct
+					FROM tb_products a
+					INNER JOIN tb_productscategories b 
+					ON a.idproduct = b.idproduct
+					WHERE b.idcategory = :idcategory
+				);
 			",[
-				':idcategory'=>$this->getidcategory()
+				":idcategory"=>$this->getidcategory()
 			]);
 
 		}
 
+
+
 	}
+
 	//Fim: Método getProducts:
+
+
+	//Inicio: Método addProduct:
+	public function addProduct(Product $product)
+	{
+		$sql = new Sql();
+
+		$sql->query("
+			INSERT INTO tb_productscategories(idcategory,idproduct) VALUES(:idcategory,:idproduct)
+		",[
+			":idcategory" => $this->getidcategory(),
+			":idproduct" => $product->getidproduct()
+		]);
+
+
+	}
+	//Fim: Método addProduct:
+
+
+	//Inicio: Método removeProduct:
+	public function removeProduct(Product $product)
+	{
+		$sql = new Sql();
+
+		$sql->query("
+			DELETE FROM tb_productscategories WHERE idcategory = :idcategory 
+			AND idproduct = :idproduct
+		",[
+			":idcategory" => $this->getidcategory(),
+			":idproduct" => $product->getidproduct()
+		]);
+
+
+	}
+	//Fim: Método removeProduct:
+
+	
+
+
+	
 
 	//Inicio: Método getProductPage ;
 	public function getProductPage($page = 1, $itemsPerPage = 3)
@@ -166,37 +215,6 @@ class Category extends Model {
 
 	//Fim: Método getProductPage ;
 
-
-
-	//Inicio: Método addProduct:
-	public function addProduct(Product $product)
-	{
-
-		$sql = new Sql();
-
-		$sql->query("INSERT INTO tb_productscategories(idcategory,idproduct) VALUES(:idcategory,:idproduct)",[
-			':idcategory'=>$this->getidcategory(),
-			':idproduct'=>$product->getidproduct()
-		]);
-
-	}
-	//Fim: Método addProduct
-
-	//Inico: Método removeProduct:
-	public function removeProduct(Product $product)
-	{
-
-		$sql = new Sql();
-
-		$sql->query("DELETE FROM tb_productscategories WHERE idcategory = :idcategory AND idproduct =:idproduct",[
-			':idcategory'=>$this->getidcategory(),
-			':idproduct'=>$product->getidproduct()
-		]);
-
-	}
-	//Fim: Método removeProduct:
-
-	//
 
 
 
