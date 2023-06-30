@@ -4,6 +4,7 @@
 use \Hcode\Page;
 use \Hcode\Model\Product; 
 use \Hcode\Model\Category;
+use \Hcode\Model\Cart;
 
 
 //Rotas do site:
@@ -65,6 +66,17 @@ $app->get('/products/:desurl',function($desurl){
         'product'=>$product->getValues(),
         'categories'=>$product->getCategories()
     ]);
+
+});
+
+//Rota para acessar o carrinho de compras:
+$app->get('/cart',function(){
+
+    $cart = Cart::getFromSession();
+
+    $page = new Page();
+
+    $page->setTpl("cart");
 
 });
 

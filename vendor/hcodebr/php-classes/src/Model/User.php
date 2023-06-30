@@ -55,7 +55,7 @@ class User extends Model {
 		}else{
 
 			//É permitido acessar partes do admin do site ou seja o adminstrador:
-			if($inadmin === true && (bool)$_SESSION[User::SESSION]["iduser"] === true ){
+			if($inadmin === true && (bool)$_SESSION[User::SESSION]["inadmin"] === true ){
 
 				return true;
 
@@ -130,7 +130,7 @@ class User extends Model {
 	public static function verifyLogin($inadmin = true)
 	{
 
-		if(!User::checkLogin($inadmin)) {
+		if(User::checkLogin($inadmin)) {
 
 			header("Location: /admin/login");
 			exit;
