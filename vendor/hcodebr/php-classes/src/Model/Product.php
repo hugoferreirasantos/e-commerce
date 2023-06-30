@@ -180,16 +180,20 @@ class Product extends Model {
 	//Fim: Método setPhoto();
 
 	//Inicio: Método getFromURL:
- 	public function getFromURL($desurl)
+	public function getFromURL($desurl)
 	{
+
 		$sql = new Sql();
 
-		$row = $sql->select("SELECT * FROM tb_products WHERE desurl = :desurl LIMIT 1",[
-			'desurl'=>$desurl
+		$rows = $sql->select("
+			SELECT *
+			FROM tb_products a
+			WHERE a.desurl = :desurl LIMIT 1
+		",[
+			":desurl"=>$desurl
 		]);
 
-		$this->setData($row[0]);
-
+		$this->setData($rows[0]);
 
 	}
 
@@ -201,14 +205,21 @@ class Product extends Model {
 
 		$sql = new Sql();
 
-		return $sql->select("SELECT * FROM tb_categories a INNER JOIN tb_productscategories b  ON a.idcategory = b.idcategory WHERE b.idproduct = :idproduct", 
-		[
-			'idproduct'=>$this->getidproduct()
+		return $sql->select("
+			SELECT * 
+			FROM tb_categories a 
+			INNER JOIN tb_productscategories b
+			ON a.idcategory = b.idcategory
+			WHERE b.idproduct = :idproduct
+		",[
+			":idproduct"=>$this->getidproduct()
 		]);
 
 	}
 
 	//Fim: Método getCategories:
+
+	
 
 	
 
