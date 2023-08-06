@@ -45,6 +45,15 @@ class Mailer {
 		//Create a new PHPMailer instance
 		$this->mail = new \PHPMailer();
 
+		//Configuração necessária para o envio de e-mail:
+		$this->mail->SMTPOptions = array(
+			'ssl' => array(
+				'verify_peer' => false,
+				'verify_peer_name' => false,
+				'allow_self_signed' => true
+			)
+		);
+
 		//Tell PHPMailer to use SMTP
 		$this->mail->isSMTP();
 

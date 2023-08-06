@@ -254,7 +254,7 @@ class User extends Model {
 	 //Fim: Método delete():
 
 	 //Inicio: Método Forgot();
-	public static function getForgot($email)
+	public static function getForgot($email, $inadmin = true)
 	{
 
 		//Verificar se o email está cadastrado no banco de dados:
@@ -294,7 +294,17 @@ class User extends Model {
 
 				//Processo de enviar os dados por um link:
 
-				$link = "http://www.hcodecommerce.com.br/admin/forgot/reset?code=$code";
+				if($inadmin === true)
+				{
+
+					$link = "http://www.hcodecommerce.com.br/admin/forgot/reset?code=$code";
+
+				}else{
+
+					$link = "http://www.hcodecommerce.com.br/forgot/reset?code=$code";
+
+				}
+
 
 				//Instânciar um objeto Mailer:
 
